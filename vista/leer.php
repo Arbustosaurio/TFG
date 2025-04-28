@@ -13,8 +13,13 @@
     <title>TFG</title>
 </head>
 <body>
-    <main>
 
+    <main>
+        <h2>Leer</h2>
+
+    <?php
+        include('../modelo/mostrarHistorias.php')
+    ?>
     </main>
 
     <footer>

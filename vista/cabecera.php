@@ -1,4 +1,6 @@
-    <style>
+<!-- Daniel Gaspar Candela -->
+   
+   <style>
                 
         nav {
             display: flex;
@@ -46,7 +48,7 @@
     <nav>
         <ul>
             <li> <a href="landing.php">Landing</a>
-            <li> <a href="#">Leer</a>
+            <li> <a href="leer.php">Leer</a>
             <!--    <ul>       menu desplegable
                     <li><a href="#">Historial</a></li>
                     <li><a href="#">Completadas</a></li>
@@ -56,8 +58,7 @@
             </li>
             <li> <a href="#">Crear</a> </li>
             <li> <a href="#">Personajes</a> </li>
-            <li> <a href="usuario.php">Usuario</a> </li>
         </ul>
 
-        <a href="#">Usuario</a>
+        <a href="usuario.php">Usuario</a>
     </nav>

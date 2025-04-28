@@ -1,3 +1,5 @@
+<!-- Daniel Gaspar Candela -->
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,7 +19,7 @@ if (isset($_GET['error'])) {
 }
 ?>
 
-<form action="../modelo/nuevoUsuario.php" method="post">  <!-- XXXXXXXX -->
+<form action="../modelo/nuevoUsu.php" method="post">
     <table>
         <tr>
             <td><label for="nombre">Nombre:</label></td>

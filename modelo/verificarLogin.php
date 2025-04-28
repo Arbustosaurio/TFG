@@ -4,7 +4,7 @@ if (isset($_POST['enviar'])){
     $inputUsuario = $_POST['inputUsuario'];
     $inputPassword = $_POST['inputPassword'];
 
-    // validamos que recibimos ambos parámetros
+    // Validamos que recibimos ambos parámetros
     if (empty($inputUsuario) || empty($inputPassword)){
         // Redireccionar a la página de login con un mensaje de error
         header("Location: ../vista/login.php?error=Debes introducir un usuario y contraseña");

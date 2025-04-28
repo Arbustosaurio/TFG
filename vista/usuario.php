@@ -1,4 +1,6 @@
 <?php
+    // Daniel Gaspar Candela
+
     // Recuperamos la información de la sesión
     if(!isset($_SESSION))
     {
