@@ -1,4 +1,22 @@
 <?php
+    // Recuperamos la información de la sesión
+    if(!isset($_SESSION))
+    {
+        session_start();
+    }
+
+    // Y comprobamos si hay un usuario iniciado
+    if (!isset($_SESSION['nombre']))
+    {
+        // Si no, reenviamos a la pagina de login
+        header("Location: login.php");
+        exit();
+    }
+
+    $nombre=$_SESSION['nombre'];
+    $tipo_usuario=$_SESSION['rol_id'];
+    $id=$_SESSION['id'];
+    
     include('cabecera.php');
 ?>
 
@@ -13,7 +31,7 @@
 <body>
 
     <main>
-        <h2>Usuario</h2>
+        <h2>Usuario: <?php echo $nombre ?></h2>
     </main>
 
     <footer>
