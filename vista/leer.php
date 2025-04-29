@@ -18,7 +18,7 @@
         <h2>Leer</h2>
 
     <?php
-        include('../modelo/mostrarHistorias.php')
+        include('../modelo/listadoHistorias.php')
     ?>
     </main>
 
