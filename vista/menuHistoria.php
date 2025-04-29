@@ -2,6 +2,7 @@
     // Daniel Gaspar Candela
     
     include('cabecera.php');
+    include('../modelo/conexion.php')
 
     if(isset($_GET['id'])){
         $id = $_GET['id'];
@@ -35,11 +36,28 @@
 
         <?php
         // Comprobamos si se ha iniciado sesion, ya que si no, no aparece la opcion de usar personaje
-        if (session_id() != '') {
+        if (session_id() === '') {
             echo "<input type=\"hidden\" name=\"personajeId\" value=0 >"
         }
         else{
-                
+            // Si el usuario esta iniciado mostramos un desplegable con sus personajes a elegir
+            $sql = "SELECT id, nombre FROM personajes WHERE idUsuario='$_SESSION['id']'";
+            $personajes = mysqli_query($conexion, $sql);
+            ?>
+
+            <label for="personajes">Selecciona un personaje:</label>
+            <select name="personajeId" id="personajes" required>
+            <option value="0">-- Ninguno --</option>
+        <?php
+        // Genera las opciones
+        if ($personajes->num_rows > 0) {
+            while($fila = $personajes->fetch_assoc()) {
+                echo '<option value="'.$fila['id'].'">'.$fila['nombre'].'</option>';
+            }
+        }
+        ?>
+    </select>
+            <?php
         }
         ?>
             <button type="submit">Comenzar lectura</button>
