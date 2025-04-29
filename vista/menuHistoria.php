@@ -5,10 +5,10 @@
     include('../modelo/conexion.php')
 
     if(isset($_GET['id'])){
-        $id = $_GET['id'];
+        $historiaId = $_GET['id'];
     }
 
-    $sql = "SELECT titulo, sinopsis, imagen, id FROM historias WHERE id = '$id'";
+    $sql = "SELECT titulo, sinopsis, imagen FROM historias WHERE id = '$historiaId'";
     $historia = mysqli_query($conexion, $sql);
 ?>
 
@@ -32,12 +32,13 @@
         </p>
 
         <form action="verHistoria.php" method="post">                
-            <input type="hidden" name="id" value= <?php echo $id ?> >
+            <input type="hidden" name="historiaId" value= <?php echo $historiaId ?> >
 
         <?php
         // Comprobamos si se ha iniciado sesion, ya que si no, no aparece la opcion de usar personaje
         if (session_id() === '') {
-            echo "<input type=\"hidden\" name=\"personajeId\" value=0 >"
+            echo "<input type=\"hidden\" name=\"personajeId\" value=0 >";
+            echo "<label>Si desea usar personajes, inicie sesion</label>";
         }
         else{
             // Si el usuario esta iniciado mostramos un desplegable con sus personajes a elegir
@@ -45,8 +46,8 @@
             $personajes = mysqli_query($conexion, $sql);
             ?>
 
-            <label for="personajes">Selecciona un personaje:</label>
-            <select name="personajeId" id="personajes" required>
+            <label for="personajeId">Selecciona un personaje:</label>
+            <select name="personajeId" id="personajeId" required>
             <option value="0">-- Ninguno --</option>
         <?php
         // Genera las opciones
