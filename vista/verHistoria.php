@@ -44,8 +44,12 @@
       $texto = $pagina['contenido'];
       $imagen = $pagina['imagen'];
 
-      $sql = "SELECT texto, id_pag_destino FROM opcion WHERE id_pag_origen='$paginaId'";
+      $sql = "SELECT texto, id_pag_destino, requisito FROM opcion WHERE id_pag_origen='$paginaId'";
       $opciones = mysqli_query($conexion, $sql);
+
+      $sql = "SELECT arquetipo FROM personaje WHERE id_creador='$_SESSION['id']' AND id_personaje='$personajeId'";
+      $personaje = mysqli_query($conexion, $sql)->fetch_assoc();
+      $arquetipo = $personaje['arquetipo'];
 ?>
 
 
@@ -76,6 +80,12 @@
                   <input type="hidden" name="historiaId" value= <?php echo $historiaId ?> >
                   <input type="hidden" name="personajeId" value= <?php echo $personajeId ?> >
                   <input type="hidden" name="paginaId" value= <?php echo $fila['id_pag_destino'] ?> >
+
+                  <?php
+                    if($fila['requisito'] !== 0 && $fila['requisito'] !== $arquetipo){
+                        ?> <button type="submit" disabled> <?php echo $fila['texto'] . "( se necesita el arquetipo )"?> </button> <?php
+                    }
+                  ?>
                   <button type="submit"> <?php echo $fila['texto'] ?> </button>
                 </form>
                 <?php
