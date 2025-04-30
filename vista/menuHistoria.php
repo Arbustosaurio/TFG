@@ -10,6 +10,10 @@
 
     $sql = "SELECT titulo, sinopsis, imagen FROM historias WHERE id = '$historiaId'";
     $historia = mysqli_query($conexion, $sql);
+    $datosHistoria = $historia->fetch_assoc();
+    $titulo = $datosHistoria['titulo'];
+    $sinopsis = $datosHistoria['sinopsis'];
+    $imagen = $datosHistoria['imagen'];
 ?>
 
 <!DOCTYPE html>
@@ -23,12 +27,12 @@
 <body>
 
     <main>
-        <h2> <?php echo $historia["titulo"] ?> </h2>
+        <h2> <?php echo $titulo ?> </h2> <br>
 
-        <?php echo $historia["imagen"] ?>
+        <?php echo $imagen ?> <br>
 
         <p>Sinopsis: <br>
-        <?php echo $historia["sinopsis"] ?>
+        <?php echo $sinopsis ?>
         </p>
 
         <form action="verHistoria.php" method="post">                
