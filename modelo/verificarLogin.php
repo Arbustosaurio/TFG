@@ -42,7 +42,7 @@ if (isset($_POST['enviar'])){
                 session_start();
                 $_SESSION['nombre'] = $nombre;
                 $_SESSION['rol_id'] = $rol_id;
-                $_SESSION['id_usuario'] = $id;
+                $_SESSION['id'] = $id;
 
                 // Redireccionar a la página landing
                 header("Location: ../vista/landing.php");

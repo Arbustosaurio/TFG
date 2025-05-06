@@ -1,5 +1,19 @@
 <!-- Daniel Gaspar Candela -->
-   
+
+<?php
+    $nombre = "Inicie Sesion";
+    
+    if(!isset($_SESSION))
+    {
+        session_start();
+    }
+
+    if(isset($_SESSION['nombre']))
+    {
+        $nombre = $_SESSION['nombre'];
+    }
+?>
+
    <style>
                 
         nav {
@@ -60,5 +74,12 @@
             <li> <a href="#">Personajes</a> </li>
         </ul>
 
-        <a href="usuario.php">Usuario</a>
+        <a href="usuario.php">Usuario: <?php echo $nombre ?> </a>
+
+        <?php
+            if(isset($_SESSION['nombre']))
+            {
+                echo "<a href=\"../modelo/cerrarSesion.php\">Cerrar Sesion</a>";
+            }
+        ?>
     </nav>
