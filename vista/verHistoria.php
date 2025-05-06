@@ -9,7 +9,7 @@
         $paginaId = $_POST['paginaId'];
     }
       // Obtenemos titulo para mostrarlo
-      $sql = "SELECT titulo FROM historias WHERE id = '$historiaId'";
+      $sql = "SELECT titulo FROM historia WHERE id_historia = '$historiaId'";
       $historia = mysqli_query($conexion, $sql)->fetch_assoc();
       $titulo = $historia['titulo'];
 
@@ -20,7 +20,7 @@
       // Si no se encuentra una pagina con este progreso, se crea uno nuevo
       if(mysql_num_rows($paginaId) == 0){
         $sql = "INSERT INTO progreso (id_usuario, id_historia, id_personaje, id_pag_actual)
-            VALUES ('$$_SESSION['id']', '$historiaId', '$personajeId', 1)";
+            VALUES ('$_SESSION['id']', '$historiaId', '$personajeId', 1)";
 
         mysqli_query($conexion, $sql);
       } 

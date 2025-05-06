@@ -8,7 +8,7 @@
         $historiaId = $_GET['id'];
     }
 
-    $sql = "SELECT titulo, sinopsis, imagen FROM historias WHERE id = '$historiaId'";
+    $sql = "SELECT titulo, sinopsis, portada FROM historia WHERE id_historia = '$historiaId'";
     $historia = mysqli_query($conexion, $sql);
     $datosHistoria = $historia->fetch_assoc();
     $titulo = $datosHistoria['titulo'];
@@ -48,7 +48,7 @@
             }
             else{
                 // Si el usuario esta iniciado mostramos un desplegable con sus personajes a elegir
-                $sql = "SELECT id, nombre FROM personajes WHERE idUsuario='$_SESSION['id']'";
+                $sql = "SELECT id_personaje, nombre FROM personaje WHERE id_usuario='$_SESSION['id']'";
                 $personajes = mysqli_query($conexion, $sql);
                 ?>
 

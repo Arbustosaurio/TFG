@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" )
 
 
     // Verificar si el nombre de usuario ya existe
-    $sql_verificar = "SELECT * FROM usuarios WHERE usuario = '$usu'";
+    $sql_verificar = "SELECT * FROM usuario WHERE usuario = '$usu'";
     $resultado_verificar = mysqli_query($conexion, $sql_verificar);
 
     if (mysqli_num_rows($resultado_verificar) > 0) {
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" )
     }
 
     // Verificar si el email de usuario ya existe
-    $sql_verificar = "SELECT * FROM usuarios WHERE email = '$email'";
+    $sql_verificar = "SELECT * FROM usuario WHERE email = '$email'";
     $resultado_verificar = mysqli_query($conexion, $sql_verificar);
 
     if (mysqli_num_rows($resultado_verificar) > 0) {
@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" )
     
 
     // Construir la consulta SQL con los datos escapados
-    $sql = "INSERT INTO usuarios(nombre, usuario, contrasena, rol_id, email)
+    $sql = "INSERT INTO usuario(nombre, usuario, contrasena, rol_id, email)
     VALUES ('$nombre', '$usu', '$hashed_password', '2', '$email')";
 
     // Ejecutar la consulta utilizando mysqli_query

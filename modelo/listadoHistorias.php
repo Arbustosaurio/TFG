@@ -4,7 +4,7 @@
     include('conexion.php');
 
     // Acceder a la base de datos para obtener los datos a mostrar de las historias
-    $sql = "SELECT titulo, sinopsis, imagen, id FROM historias";
+    $sql = "SELECT titulo, sinopsis, imagen, id_historia FROM historia";
     $listado = mysqli_query($conexion, $sql);
 
     // Verificar si hubo algún error al ejecutar la consulta

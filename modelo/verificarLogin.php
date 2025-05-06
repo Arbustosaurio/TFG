@@ -18,7 +18,7 @@ if (isset($_POST['enviar'])){
         $inputPassword = mysqli_real_escape_string($conexion, $inputPassword);
 
         // Consultar la base de datos para obtener el hash de la contraseña asociada al usuario
-        $sql = "SELECT contrasena, nombre, rol_id, id FROM usuarios WHERE usuario = '$usuario'";
+        $sql = "SELECT contrasena, nombre, rol_id, id_usuario FROM usuario WHERE usuario = '$usuario'";
         $resultado = mysqli_query($conexion, $sql);
 
         // Verificar si hubo algún error al ejecutar la consulta
@@ -36,13 +36,13 @@ if (isset($_POST['enviar'])){
                 //Acceso concedido -> La contraseña es correcta
                 $nombre = $row['nombre'];
                 $rol_id = $row['rol_id'];
-                $id = $row['id'];
+                $id = $row['id_usuario'];
 
                 // almacenamos el usuario en la sesión
                 session_start();
                 $_SESSION['nombre'] = $nombre;
                 $_SESSION['rol_id'] = $rol_id;
-                $_SESSION['id'] = $id;
+                $_SESSION['id_usuario'] = $id;
 
                 // Redireccionar a la página landing
                 header("Location: ../vista/landing.php");
