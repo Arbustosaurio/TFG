@@ -21,9 +21,9 @@
 <?php
     while ($fila = $listado->fetch_assoc()){
         echo "<tr>";
-        echo "<td> <a href=..\"vista\"menuHistoria.php?id=" . $fila['id'] . "\">" . $fila['titulo'] . " </a> </td>";
-        echo "<td> <a href=..\"vista\"menuHistoria.php?id=" . $fila['id'] . "\">" . $fila['sinopsis'] . " </a> </td>";
-        echo "<td> <a href=..\"vista\"menuHistoria.php?id=" . $fila['id'] . "\">" . $fila['portada'] . " </a> </td>";
+        echo "<td> <a href=\"../vista\menuHistoria.php?id=" . $fila['id_historia'] . "\">" . $fila['titulo'] . " </a> </td>";
+        echo "<td> <a href=\"../vista\menuHistoria.php?id=" . $fila['id_historia'] . "\">" . $fila['sinopsis'] . " </a> </td>";
+        echo "<td> <a href=\"../vista\menuHistoria.php?id=" . $fila['id_historia'] . "\">" . $fila['portada'] . " </a> </td>";
 
         echo "</tr>";
     }

@@ -2,6 +2,12 @@
     // Daniel Gaspar Candela
     
     include('cabecera.php');
+    include('../modelo/conexion.php');
+
+    $usuario = 0;
+    if (isset($_SESSION['nombre'])) {
+      $usuario = $_SESSION['id_usuario'];
+    }
 
     if(isset($_POST['historiaId'])){
         $historiaId = $_POST['historiaId'];
@@ -14,13 +20,13 @@
       $titulo = $historia['titulo'];
 
       // Al iniciar la lectura, crearemos la entrada en la BBDD del progreso si no esta ya creada
-      $sql = "SELECT id_pag_actual FROM progreso WHERE id_usuario='$_SESSION['id']' AND id_historia='$historiaId'";
+      $sql = "SELECT id_pag_actual FROM progreso WHERE id_usuario='$usuario' AND id_historia='$historiaId'";
       $paginaIdBBDD = mysqli_query($conexion, $sql);
 
       // Si no se encuentra una pagina con este progreso, se crea uno nuevo
-      if(mysql_num_rows($paginaId) == 0){
+      if(mysqli_num_rows($paginaIdBBDD) < 0){
         $sql = "INSERT INTO progreso (id_usuario, id_historia, id_personaje, id_pag_actual)
-            VALUES ('$_SESSION['id']', '$historiaId', '$personajeId', 1)";
+            VALUES ('$usuario', '$historiaId', '$personajeId', 1)";
 
         mysqli_query($conexion, $sql);
       } 
@@ -32,7 +38,7 @@
             $idBBDD = $paginaIdBBDD->fetch_assoc();
             $paginaId = $idBBDD['id_pag_actual'];
           } else {
-            $sql = "UPDATE progreso SET id_pag_actual = '$paginaId' WHERE id_usuario='$_SESSION['id']' AND id_historia='$historiaId'";
+            $sql = "UPDATE progreso SET id_pag_actual = '$paginaId' WHERE id_usuario='$usuario' AND id_historia='$historiaId'";
             mysqli_query($conexion, $sql);
           }
       }
@@ -40,16 +46,33 @@
 
 
       $sql = "SELECT contenido, imagen FROM pagina WHERE id_pagina='$paginaId' AND id_historia='$historiaId'";
-      $pagina = mysqli_query($conexion, $sql)->fetch_assoc();
-      $texto = $pagina['contenido'];
-      $imagen = $pagina['imagen'];
+      $resultado = mysqli_query($conexion, $sql);
+      if ($resultado === false) {
+        die("Error en la consulta: " . mysqli_error($conexion));
+      }
+      $pagina = mysqli_fetch_assoc($resultado);
+      if ($pagina) {
+          $texto = $pagina['contenido'];
+          $imagen = $pagina['imagen'];
+      } else {
+          // Manejo cuando no hay resultados
+          $texto = "Contenido no encontrado";
+          $imagen = "imagen_default.jpg";
+          
+          // Opcional: registrar el error
+          error_log("No se encontró página con id_pagina=$paginaId e id_historia=$historiaId");
+      }
 
       $sql = "SELECT texto, id_pag_destino, requisito FROM opcion WHERE id_pag_origen='$paginaId'";
       $opciones = mysqli_query($conexion, $sql);
 
-      $sql = "SELECT arquetipo FROM personaje WHERE id_creador='$_SESSION['id']' AND id_personaje='$personajeId'";
-      $personaje = mysqli_query($conexion, $sql)->fetch_assoc();
-      $arquetipo = $personaje['arquetipo'];
+      $arquetipo = 0;
+      if (isset($_SESSION['nombre'])) {
+        $sql = "SELECT arquetipo FROM personaje WHERE id_creador='$usuario' AND id_personaje='$personajeId'";
+        $personaje = mysqli_query($conexion, $sql)->fetch_assoc();
+        $arquetipo = $personaje['arquetipo'];
+      }
+      
 ?>
 
 
@@ -67,7 +90,7 @@
     <main>
         <h2> Titulo: <?php echo $titulo ?> </h2> <br>
 
-        <?php if ($imagen !== 0) {echo $imagen} ?> <br>
+        <?php if ($imagen !== 0) {echo $imagen;} ?> <br>
 
         <p> <?php echo $texto ?> </p>
 

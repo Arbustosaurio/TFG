@@ -2,7 +2,7 @@
     // Daniel Gaspar Candela
     
     include('cabecera.php');
-    include('../modelo/conexion.php')
+    include('../modelo/conexion.php');
 
     if(isset($_GET['id'])){
         $historiaId = $_GET['id'];
@@ -13,7 +13,7 @@
     $datosHistoria = $historia->fetch_assoc();
     $titulo = $datosHistoria['titulo'];
     $sinopsis = $datosHistoria['sinopsis'];
-    $imagen = $datosHistoria['imagen'];
+    $portada = $datosHistoria['portada'];
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +29,7 @@
     <main>
         <h2> <?php echo $titulo ?> </h2> <br>
 
-        <?php echo $imagen ?> <br>
+        <?php echo "Portada   " . $portada ?> <br>
 
         <p>Sinopsis: <br>
         <?php echo $sinopsis ?>
@@ -42,13 +42,14 @@
 
             <?php
             // Comprobamos si se ha iniciado sesion, ya que si no, no aparece la opcion de usar personaje
-            if (session_id() === '') {
+            if (!isset($_SESSION['nombre'])) {
                 echo "<input type=\"hidden\" name=\"personajeId\" value=0 >";
-                echo "<label>Si desea usar personajes, inicie sesion</label>";
+                echo "<label>Si desea usar personajes, inicie sesion</label><br>";
             }
             else{
                 // Si el usuario esta iniciado mostramos un desplegable con sus personajes a elegir
-                $sql = "SELECT id_personaje, nombre FROM personaje WHERE id_usuario='$_SESSION['id']'";
+                $usuario = $_SESSION['id_usuario'];
+                $sql = "SELECT id_personaje, nombre FROM personaje WHERE id_usuario='$usuario'";
                 $personajes = mysqli_query($conexion, $sql);
                 ?>
 
