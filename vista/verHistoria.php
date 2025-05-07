@@ -5,6 +5,8 @@
     include('../modelo/conexion.php');
 
     $usuario = 0;
+
+    // Validar sesion
     if (isset($_SESSION['nombre'])) {
       $usuario = $_SESSION['id_usuario'];
     }
@@ -24,7 +26,7 @@
       $paginaIdBBDD = mysqli_query($conexion, $sql);
 
       // Si no se encuentra una pagina con este progreso, se crea uno nuevo
-      if(mysqli_num_rows($paginaIdBBDD) <= 0){
+      if($paginaIdBBDD->num_rows <= 0){
         $sql = "INSERT INTO progreso (id_usuario, id_historia, id_personaje, id_pag_actual)
             VALUES ('$usuario', '$historiaId', '$personajeId', 1)";
 
@@ -38,8 +40,22 @@
             $idBBDD = $paginaIdBBDD->fetch_assoc();
             $paginaId = (int)$idBBDD['id_pag_actual'];
           } else {
-            $sql = "UPDATE progreso SET id_pag_actual = '$paginaId' WHERE id_usuario='$usuario' AND id_historia='$historiaId'";
+            
+         /*   $sql = "UPDATE progreso SET id_pag_actual = '$paginaId' WHERE id_usuario='$usuario' AND id_historia='$historiaId'";
             mysqli_query($conexion, $sql);
+*/
+
+            // Verificar que la página existe antes de actualizar
+            $sql = "SELECT 1 FROM pagina WHERE id_pagina = '$paginaId' AND id_historia = '$historiaId'";
+            $check = mysqli_query($conexion, $sql);
+            
+            if($check->num_rows > 0) {
+                $sql = "UPDATE progreso SET id_pag_actual = '$paginaId' WHERE id_usuario = '$usuario' AND id_historia = '$historiaId'";
+                mysqli_query($conexion, $sql);
+            } else {
+                error_log("Intento de actualizar a página inexistente: $paginaId");
+                $paginaId = 1; // Valor por defecto
+            }
           }
       }
 
@@ -105,7 +121,8 @@
                   <input type="hidden" name="paginaId" value= <?php echo $fila['id_pag_destino'] ?> >
 
                   <?php
-                    if($fila['requisito'] !== 0 && $fila['requisito'] !== $arquetipo){
+                    // Muestra desabilitadas las opciones por aquetipo
+                    if($fila['requisito'] !== 1 && $fila['requisito'] !== $arquetipo){
                         ?> <button type="submit" disabled> <?php echo $fila['texto'] . "( se necesita el arquetipo )"?> </button> <?php
                     }
                   ?>
@@ -113,6 +130,12 @@
                 </form>
                 <?php
               }
+          } else{
+            ?>
+                <form action="leer.php" method="post">                
+                  <button type="submit"> Has llegado al final de este relato. </button>
+                </form>
+                <?php
           }
         ?>
 
