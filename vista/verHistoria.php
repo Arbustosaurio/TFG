@@ -24,7 +24,7 @@
       $paginaIdBBDD = mysqli_query($conexion, $sql);
 
       // Si no se encuentra una pagina con este progreso, se crea uno nuevo
-      if(mysqli_num_rows($paginaIdBBDD) < 0){
+      if(mysqli_num_rows($paginaIdBBDD) <= 0){
         $sql = "INSERT INTO progreso (id_usuario, id_historia, id_personaje, id_pag_actual)
             VALUES ('$usuario', '$historiaId', '$personajeId', 1)";
 
@@ -36,7 +36,7 @@
           En el segundo caso, hay que actualizar la pagina del progreso antes de continuar, de ahi el if    */
           if($paginaId === 0){
             $idBBDD = $paginaIdBBDD->fetch_assoc();
-            $paginaId = $idBBDD['id_pag_actual'];
+            $paginaId = (int)$idBBDD['id_pag_actual'];
           } else {
             $sql = "UPDATE progreso SET id_pag_actual = '$paginaId' WHERE id_usuario='$usuario' AND id_historia='$historiaId'";
             mysqli_query($conexion, $sql);
