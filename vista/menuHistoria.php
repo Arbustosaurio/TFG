@@ -60,7 +60,7 @@
             // Genera las opciones
             if ($personajes->num_rows > 0) {
                 while($fila = $personajes->fetch_assoc()) {
-                    echo '<option value='.$fila['id'].'>'.$fila['nombre'].'</option>';
+                    echo '<option value='.$fila['id_personaje'].'>'.$fila['nombre'].'</option>';
                 }
             }
             ?>
