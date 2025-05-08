@@ -38,7 +38,7 @@
         <form action="verHistoria.php" method="post">                
             <input type="hidden" name="historiaId" value= <?php echo $historiaId ?> >
             <!-- Se le pasa una pagina porque la pagina verHistoria va a recibir la pagina de si misma al ir avanzando, y asi siempre recive un dato y evito problemas-->
-            <input type="hidden" name="paginaId" value= 0 >
+            <input type="hidden" name="paginaId" value=0 >
 
             <?php
             // Comprobamos si se ha iniciado sesion, ya que si no, no aparece la opcion de usar personaje

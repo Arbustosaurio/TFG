@@ -22,7 +22,7 @@
       $titulo = $historia['titulo'];
 
       // Al iniciar la lectura, crearemos la entrada en la BBDD del progreso si no esta ya creada
-      $sql = "SELECT id_pag_actual FROM progreso WHERE id_usuario='$usuario' AND id_historia='$historiaId'";
+      $sql = "SELECT id_pag_actual FROM progreso WHERE id_usuario='$usuario' AND id_historia='$historiaId' /*AND id_personaje='$personajeId'*/";
       $paginaIdBBDD = mysqli_query($conexion, $sql);
 
       // Si no se encuentra una pagina con este progreso, se crea uno nuevo
@@ -36,17 +36,13 @@
       else{
         /* Aqui se puede llegar en dos casos, si se entra desde el menu, recibiendo una id=0 pero si teniendo progreso, o tras avanzar una pagina 
           En el segundo caso, hay que actualizar la pagina del progreso antes de continuar, de ahi el if    */
-          if($paginaId === 0){
+          if($paginaId == 0){
             $idBBDD = $paginaIdBBDD->fetch_assoc();
             $paginaId = (int)$idBBDD['id_pag_actual'];
           } else {
-            
-         /*   $sql = "UPDATE progreso SET id_pag_actual = '$paginaId' WHERE id_usuario='$usuario' AND id_historia='$historiaId'";
-            mysqli_query($conexion, $sql);
-*/
 
             // Verificar que la página existe antes de actualizar
-            $sql = "SELECT 1 FROM pagina WHERE id_pagina = '$paginaId' AND id_historia = '$historiaId'";
+            $sql = "SELECT id_pagina FROM pagina WHERE id_pagina = '$paginaId' AND id_historia = '$historiaId'";
             $check = mysqli_query($conexion, $sql);
             
             if($check->num_rows > 0) {
@@ -122,7 +118,7 @@
 
                   <?php
                     // Muestra desabilitadas las opciones por aquetipo
-                    if($fila['requisito'] !== 1 && $fila['requisito'] !== $arquetipo){
+                    if($fila['requisito'] != 1 && $fila['requisito'] != $arquetipo){
                         ?> <button type="submit" disabled> <?php echo $fila['texto'] . "( se necesita el arquetipo )"?> </button> <?php
                     }
                   ?>
@@ -132,15 +128,23 @@
               }
           } else{
             ?>
+              <a>Has llegado al final de este relato.</a> <br> <br>
                 <form action="leer.php" method="post">                
-                  <button type="submit"> Has llegado al final de este relato. </button>
+                  <button type="submit"> Ir a menu de historias </button>
+                </form> <br>
+
+                <form action="verHistoria.php" method="post">
+                  <input type="hidden" name="historiaId" value= <?php echo $historiaId ?> >
+                  <input type="hidden" name="personajeId" value= <?php echo $personajeId ?> >
+                  <input type="hidden" name="paginaId" value=1 >               
+                  <button type="submit"> Volver a empezar </button>
                 </form>
                 <?php
           }
         ?>
 
     </main>
-
+    
     <footer>
 
     </footer>
