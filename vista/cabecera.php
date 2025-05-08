@@ -71,7 +71,7 @@
                 </ul> -->
             </li>
             <li> <a href="#">Crear</a> </li>
-            <li> <a href="#">Personajes</a> </li>
+            <li> <a href="personajes.php">Personajes</a> </li>
         </ul>
 
         <a href="usuario.php">Usuario: <?php echo $nombre ?> </a>

@@ -24,7 +24,10 @@ Vista:
     Menu de usuario
 
 - verHistoria:
-    Muestra la pagina en la que se encuentra el usuario, generando las opciones necesarias.     -- Igual se revisa sacando codigo a la parte de modelo --
+    Muestra la pagina de la historia en la que se encuentra el usuario, generando las opciones necesarias.     -- Igual se revisa sacando codigo a la parte de modelo --
+
+- personajes:
+    Muestra una lista de los personajes del usuario, y lleva a la pagina de creacion de estos
 
 
 
@@ -35,6 +38,9 @@ Modelo:
 
 - listadoHistorias:
     Obtiene todas las historias y las muestra donde se incluya.     -- Falta añadir funciones como busqueda por nombre, etc --
+
+- listadoPersonajes:
+    Obtiene todos los personajes del usuario si esta registrado y las muestra donde se incluya.     -- Falta añadir funciones como busqueda por nombre, etc --
 
 - nuevoUsu:
     Recibe los datos de registroUsu, y si no hay problemas añade el usuario a la BBDD

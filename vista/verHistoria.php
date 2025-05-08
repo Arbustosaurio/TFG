@@ -1,5 +1,15 @@
 <?php
     // Daniel Gaspar Candela
+
+
+/*
+
+
+  Hacer que al no estar registado no cree progreso, ya que falla
+
+
+*/
+
     
     include('cabecera.php');
     include('../modelo/conexion.php');
@@ -127,8 +137,9 @@
                 <?php
               }
           } else{
+            // Si no hay opciones es porque se ha llegado al final del relato, por lo tanto esto se avisa y se da la opcion de volver al listado de historias o volver a empezar
             ?>
-              <a>Has llegado al final de este relato.</a> <br> <br>
+              <p>Has llegado al final de este relato.</p> <br> <br>
                 <form action="leer.php" method="post">                
                   <button type="submit"> Ir a menu de historias </button>
                 </form> <br>
