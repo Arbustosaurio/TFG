@@ -70,7 +70,7 @@
                     <li><a href="#">Novedades</a></li>
                 </ul> -->
             </li>
-            <li> <a href="#">Crear</a> </li>
+            <li> <a href="crear.php">Crear</a> </li>
             <li> <a href="personajes.php">Personajes</a> </li>
         </ul>
 

@@ -59,9 +59,8 @@
 
         <?php
     } else{
-        ?>
-            <p>Para poder crear y usar personajes debes <a href="login.php">Iniciar Sesion</a></p>
-        <?php
+            echo "<p>Para poder crear y usar personajes debes <a href=\"login.php\">Iniciar Sesion</a></p>";
+
     }
         
     ?>

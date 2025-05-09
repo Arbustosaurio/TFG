@@ -15,11 +15,21 @@
 <body>
 
     <main>
-        <h2>Leer</h2>
+        <h2>Crear</h2>
 
     <?php
-        include('../modelo/listadoHistorias.php');
+        if(isset($_SESSION['nombre'])){
+            include('../modelo/menuCrear.php');
+
+        } else{
+            echo "<p>Para poder crear historias propias debes <a href=\"login.php\">Iniciar Sesion</a></p>";
+        }
     ?>
+
+    <br>
+    <form action="crearHistoria.php" method="post">
+        <button type="submit"> Crear Nueva Historia </button>
+    </form>
     </main>
 
     <footer>
