@@ -30,28 +30,3 @@
     echo "</table>";
 
 ?>
-    <br> <br>
-    <h3>Crear Nuevo Personaje<h3>
-    <form action="anadirPersonaje.php" method="post">
-        <label for="nombre">Nombre:</label><br>
-        <input type="text" id="nombre" name="nombre"><br>
-        <?php
-        
-            $sql = "SELECT id_arquetipos, nombre FROM arquetipos";
-            $arquetipos = mysqli_query($conexion, $sql);
-        ?>
-
-        <label for="arquetipo">Selecciona un arquetipo:</label><br>
-        <select name="arquetipo" id="arquetipo" required>
-        <?php
-        // Genera las opciones
-        if ($arquetipos->num_rows > 0) {
-            while($fila = $arquetipos->fetch_assoc()) {
-                echo '<option value='.$fila['id_arquetipos'].'>'.$fila['nombre'].'</option>';
-            }
-        }
-        ?>
-            </select> <br> <br>
-
-        <button type="submit"> Crear </button>
-    </form> <br>
