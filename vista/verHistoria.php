@@ -33,6 +33,11 @@
       $historia = mysqli_query($conexion, $sql)->fetch_assoc();
       $titulo = $historia['titulo'];
 
+      // Obtenemos nombre de personaje para mostrarlo
+      $sql = "SELECT nombre FROM personaje WHERE id_personaje = '$personajeId'";
+      $personaje = mysqli_query($conexion, $sql)->fetch_assoc();
+      $nombre = $personaje['nombre'];
+
       // Al iniciar la lectura, crearemos la entrada en la BBDD del progreso si no esta ya creada
       $sql = "SELECT id_pag_actual FROM progreso WHERE id_usuario='$usuario' AND id_historia='$historiaId' AND id_personaje='$personajeId'";
       $paginaIdBBDD = mysqli_query($conexion, $sql);
@@ -95,8 +100,8 @@
       $arquetipo = 0;
       if (isset($_SESSION['nombre'])) {
         $sql = "SELECT arquetipo FROM personaje WHERE id_creador='$usuario' AND id_personaje='$personajeId'";
-        $personaje = mysqli_query($conexion, $sql)->fetch_assoc();
-        $arquetipo = $personaje['arquetipo'];
+        $persoArque = mysqli_query($conexion, $sql)->fetch_assoc();
+        $arquetipo = $persoArque['arquetipo'];
       }
       
 ?>
@@ -114,7 +119,8 @@
 <body>
 
     <main>
-        <h2> Titulo: <?php echo $titulo ?> </h2> <br>
+        <h2> Titulo: <?php echo $titulo ?> </h2>
+        <h3> Personaje actual: <?php echo $nombre ?> </h3> <br>
 
         <?php if ($imagen !== 0) {echo $imagen;} ?> <br>
 
