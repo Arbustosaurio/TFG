@@ -56,7 +56,6 @@
 
                 <label for="personajeId">Selecciona un personaje:</label>
                 <select name="personajeId" id="personajeId" required>
-                    <option value=1>-- Ninguno --</option>
             <?php
             // Genera las opciones
             if ($personajes->num_rows > 0) {

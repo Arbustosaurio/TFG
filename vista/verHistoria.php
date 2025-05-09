@@ -38,11 +38,13 @@
       $paginaIdBBDD = mysqli_query($conexion, $sql);
 
       // Si no se encuentra una pagina con este progreso, se crea uno nuevo
-      if($paginaIdBBDD->num_rows <= 0){
+      if(mysqli_num_rows($paginaIdBBDD) == 0){
         $sql = "INSERT INTO progreso (id_usuario, id_historia, id_personaje, id_pag_actual)
             VALUES ('$usuario', '$historiaId', '$personajeId', 1)";
 
         mysqli_query($conexion, $sql);
+
+        $paginaId = 1; // Valor por defecto
       } 
       // y si se encuentra el progreso, se saca la pagina para poder mostrarla
       else{
@@ -58,7 +60,7 @@
             $check = mysqli_query($conexion, $sql);
             
             if($check->num_rows > 0) {
-                $sql = "UPDATE progreso SET id_pag_actual = '$paginaId' WHERE id_usuario = '$usuario' AND id_historia = '$historiaId'";
+                $sql = "UPDATE progreso SET id_pag_actual = '$paginaId' WHERE id_usuario = '$usuario' AND id_historia = '$historiaId' AND id_personaje='$personajeId'";
                 mysqli_query($conexion, $sql);
             } else {
                 error_log("Intento de actualizar a página inexistente: $paginaId");
