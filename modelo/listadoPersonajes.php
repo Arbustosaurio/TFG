@@ -4,6 +4,9 @@
     include('conexion.php');
 
     // Acceder a la base de datos para obtener los datos a mostrar de las historias
+    if (!isset($_SESSION)) {
+        session_start();
+    }
     $usuario = $_SESSION['id_usuario'];
     $sql = "SELECT p.nombre as nombre_personaje, a.nombre as nombre_arquetipo FROM personaje p JOIN arquetipos a WHERE p.id_creador = '$usuario' AND a.id_arquetipos = p.arquetipo";
     $listado = mysqli_query($conexion, $sql);

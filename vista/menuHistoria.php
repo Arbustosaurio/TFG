@@ -3,6 +3,7 @@
     
     include('cabecera.php');
     include('../modelo/conexion.php');
+    session_start();
 
     if(isset($_GET['id'])){
         $historiaId = $_GET['id'];

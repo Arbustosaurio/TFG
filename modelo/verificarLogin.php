@@ -18,7 +18,7 @@ if (isset($_POST['enviar'])){
         $inputPassword = mysqli_real_escape_string($conexion, $inputPassword);
 
         // Consultar la base de datos para obtener el hash de la contraseña asociada al usuario
-        $sql = "SELECT contrasena, nombre, rol_id, id_usuario FROM usuario WHERE usuario = '$usuario'";
+        $sql = "SELECT contrasena, nombre, rol_id, id_usuario FROM usuario WHERE nombre = '$usuario'";
         $resultado = mysqli_query($conexion, $sql);
 
         // Verificar si hubo algún error al ejecutar la consulta

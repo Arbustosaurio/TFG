@@ -14,27 +14,26 @@ function hash_password($password)
 if ($_SERVER["REQUEST_METHOD"] === "POST" )
 {
     $nombre = $_POST["nombre"];
-    $usu = $_POST["usuario"];
     $password = $_POST["contrasena"];
     $email = $_POST["email"];
     
 
     // Verificar si los campos no están en blanco
-    if (empty($nombre) || empty($usu) || empty($password) || empty($email))
+    if (empty($nombre) || empty($password) || empty($email))
     {
         // Redireccionar a la página del formulario con un mensaje de error
-        header("Location: ../vista/registro.php?error=Todos los campos son obligatorios");
+        header("Location: ../vista/registroUsu.php?error=Todos los campos son obligatorios");
         exit(); // Asegura que el script se detenga después de redirigir
     }
 
 
     // Verificar si el nombre de usuario ya existe
-    $sql_verificar = "SELECT * FROM usuario WHERE usuario = '$usu'";
+    $sql_verificar = "SELECT * FROM usuario WHERE nombre = '$nombre'";
     $resultado_verificar = mysqli_query($conexion, $sql_verificar);
 
     if (mysqli_num_rows($resultado_verificar) > 0) {
         // Redireccionar a la página del formulario con un mensaje de error
-        header("Location: ../vista/registro.php?error=El nombre de usuario ya existe. Por favor, elige otro.");
+        header("Location: ../vista/registroUsu.php?error=El nombre de usuario ya existe. Por favor, elige otro.");
         exit();
     }
 
@@ -44,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" )
 
     if (mysqli_num_rows($resultado_verificar) > 0) {
         // Redireccionar a la página del formulario con un mensaje de error
-        header("Location: ../vista/registro.php?error=El email ya esta en uso. Por favor, elige otro.");
+        header("Location: ../vista/registroUsu.php?error=El email ya esta en uso. Por favor, elige otro.");
         exit();
     }
 
@@ -60,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" )
     
 
     // Construir la consulta SQL con los datos escapados
-    $sql = "INSERT INTO usuario(nombre, usuario, contrasena, rol_id, email)
+    $sql = "INSERT INTO usuario(nombre, contrasena, rol_id, email)
     VALUES ('$nombre', '$usu', '$hashed_password', '2', '$email')";
 
     // Ejecutar la consulta utilizando mysqli_query
@@ -71,15 +70,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" )
         die("Error al ejecutar la consulta: " . mysqli_error($conexion));
     }
 
-    echo "El usuario $usu ha sido introducido en el sistema con la contraseña $password.";
-    echo '<br><a href="../vista/login.php">Volver a la página login</a>';
+    echo "<br>El usuario <h3>$nombre</h3> ha sido introducido en el sistema con la contraseña <h3>$password</h3>.";
+    echo '<br><br><a href="../vista/login.php">Volver a la página login</a>';
 }
 else
 {
     // Redireccionar a la página del formulario con un mensaje de error
-    header("Location: ../vista/registro.php?error=No se ha podido introducir el nuevo usuario");
+    header("Location: ../vista/registroUsu.php?error=No se ha podido introducir el nuevo usuario");
     exit(); // Asegura que el script se detenga después de redirigir
 }
-// Cerrar la conexión
-mysqli_close($conexion);
+
 ?>

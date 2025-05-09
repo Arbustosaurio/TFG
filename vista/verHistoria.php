@@ -13,7 +13,9 @@
     
     include('cabecera.php');
     include('../modelo/conexion.php');
-
+    if (!isset($_SESSION)) {
+      session_start();
+    }
     $usuario = 0;
 
     // Validar sesion
@@ -32,7 +34,7 @@
       $titulo = $historia['titulo'];
 
       // Al iniciar la lectura, crearemos la entrada en la BBDD del progreso si no esta ya creada
-      $sql = "SELECT id_pag_actual FROM progreso WHERE id_usuario='$usuario' AND id_historia='$historiaId' /*AND id_personaje='$personajeId'*/";
+      $sql = "SELECT id_pag_actual FROM progreso WHERE id_usuario='$usuario' AND id_historia='$historiaId' AND id_personaje='$personajeId'";
       $paginaIdBBDD = mysqli_query($conexion, $sql);
 
       // Si no se encuentra una pagina con este progreso, se crea uno nuevo

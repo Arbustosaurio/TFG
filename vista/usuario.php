@@ -17,7 +17,7 @@
 
     $nombre=$_SESSION['nombre'];
     $tipo_usuario=$_SESSION['rol_id'];
-    $id=$_SESSION['id'];
+    $id=$_SESSION['id_usuario'];
     
     include('cabecera.php');
 ?>
